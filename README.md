@@ -42,7 +42,7 @@ This project is a web scraper and video downloader that scrapes a given webpage 
 Run the script with the base URL, output file, and filter path. For example:
 
 ```sh
-python scrape_and_download.py https://www.xnxx.com/search/* --output urls.txt --filter_path /video
+python app.py https://www.xnxx.com/search/* --output urls.txt --filter_path /video
 ```
 ## Arguments
 base_url: The base URL of the webpage to scrape.
@@ -51,7 +51,7 @@ base_url: The base URL of the webpage to scrape.
 Example
 For the following command:
 ```
-python scrape_and_download.py https://www.example.com/search/query --output urls.txt --filter_path /video
+python app.py https://www.xnxx.com/search/* --output urls.txt --filter_path /video
 ```
 The script scrapes https://www.xnxx.com/search/query for all URLs that start with https://www.example.com/video.
 Saves the filtered URLs to urls.txt.
@@ -63,7 +63,11 @@ Moves all .mp4 files to a subdirectory named query.
 ```
 web-scraper-and-video-downloader/
 │
-├── scrape_and_download.py  # Main script
+├── app.exe                  # Main script
+├── youtube-dl.exe          # Download script
+├── ffmpeg.exe              # ffmpeg script
+├── ffplay.exe              # ffplay script
+├── ffprobe.exe             # ffprobe script
 └── README.md               # Project documentation
 ```
 Contributing
