@@ -43,34 +43,35 @@ Run the script with the base URL, output file, and filter path. For example:
 
 ```sh
 python scrape_and_download.py https://www.xnxx.com/search/* --output urls.txt --filter_path /video
-
+```
 ## Arguments
 base_url: The base URL of the webpage to scrape.
 --output: The output file path (default: urls.txt).
 --filter_path: The path to filter URLs (default: /video).
 Example
 For the following command:
-
+```
 python scrape_and_download.py https://www.example.com/search/query --output urls.txt --filter_path /video
-
-The script scrapes https://www.example.com/search/query for all URLs that start with https://www.example.com/video.
+```
+The script scrapes https://www.xnxx.com/search/query for all URLs that start with https://www.example.com/video.
 Saves the filtered URLs to urls.txt.
 Downloads the videos from the URLs listed in urls.txt using youtube-dl.exe.
 Removes urls.txt after a successful download.
 Moves all .mp4 files to a subdirectory named query.
 
 ## Project Structure
-
+```
 web-scraper-and-video-downloader/
 │
 ├── scrape_and_download.py  # Main script
 └── README.md               # Project documentation
-
+```
 Contributing
 Contributions are welcome! Please fork the repository and use a feature branch. Pull requests are warmly welcome.
 
 
 ### Instructions
-
-1. Replace `https://github.com/yourusername/web-scraper-and-video-downloader.git` with the actual URL of your GitHub repository.
+```
+1. Replace `https://github.com/thisisawesome1994/xnxx-dl.git` with the actual URL of your GitHub repository.
 2. Optionally, add a `LICENSE` file to the repository if you want to include licensing information.
+```
