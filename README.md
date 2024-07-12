@@ -63,7 +63,8 @@ Moves all .mp4 files to a subdirectory named query.
 ```
 web-scraper-and-video-downloader/
 │
-├── app.exe                  # Main script
+├── app.exe                 # Main script
+├── app.py                  # Main script source (redundant)
 ├── youtube-dl.exe          # Download script
 ├── ffmpeg.exe              # ffmpeg script
 ├── ffplay.exe              # ffplay script
