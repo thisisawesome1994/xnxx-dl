@@ -74,9 +74,3 @@ web-scraper-and-video-downloader/
 Contributing
 Contributions are welcome! Please fork the repository and use a feature branch. Pull requests are warmly welcome.
 
-
-### Instructions
-```
-1. Replace `https://github.com/thisisawesome1994/xnxx-dl.git` with the actual URL of your GitHub repository.
-2. Optionally, add a `LICENSE` file to the repository if you want to include licensing information.
-```
