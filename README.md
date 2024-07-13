@@ -71,6 +71,11 @@ web-scraper-and-video-downloader/
 ├── ffprobe.exe             # ffprobe script
 └── README.md               # Project documentation
 ```
+
+Note: Special Version: 'app_rerun.exe'
+
+It reruns every hour after downloading. New videos regularily gets pushed to website's search, and skips already downloaded videos.
+
 Contributing
 Contributions are welcome! Please fork the repository and use a feature branch. Pull requests are warmly welcome.
 
