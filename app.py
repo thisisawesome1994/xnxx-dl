@@ -56,10 +56,9 @@ def move_mp4_files(subdirectory):
         if file.endswith('.mp4'):
             shutil.move(file, os.path.join(subdirectory, file))
 
-def save_downloaded_urls(urls, file_path):
+def save_downloaded_url(url, file_path):
     with open(file_path, 'a') as file:
-        for url in urls:
-            file.write(url + '\n')
+        file.write(url + '\n')
 
 def read_downloaded_urls(file_path):
     if not os.path.exists(file_path):
@@ -89,15 +88,19 @@ def main():
     with open(args.to_download_file, 'r') as file:
         base_urls = [line.strip() for line in file]
 
-    for base_url in base_urls:
-        # Read previously downloaded URLs
-        downloaded_urls = read_downloaded_urls(args.downloaded_file)
+    # Read previously downloaded URLs
+    downloaded_urls = read_downloaded_urls(args.downloaded_file)
 
+    for base_url in base_urls:
         # Scrape URLs and filter out already downloaded ones
         filtered_urls = scrape_urls(base_url, args.filter_path)
         new_urls = [url for url in filtered_urls if url not in downloaded_urls]
 
         for url in new_urls:
+            if url in downloaded_urls:
+                print(f"Skipping already downloaded URL: {url}")
+                continue
+
             # Save the single URL to a temporary file
             temp_output_file = 'temp_urls.txt'
             save_urls_to_file([url], temp_output_file)
@@ -110,7 +113,10 @@ def main():
                 os.remove(temp_output_file)
 
                 # Save the successfully downloaded URL to the downloaded_file
-                save_downloaded_urls([url], args.downloaded_file)
+                save_downloaded_url(url, args.downloaded_file)
+
+                # Add the URL to the set of downloaded URLs to avoid re-downloading in the same run
+                downloaded_urls.add(url)
 
                 # Determine the subdirectory name based on the base URL
                 subdirectory = get_subdirectory_from_url(base_url)
@@ -119,9 +125,8 @@ def main():
                 move_mp4_files(subdirectory)
             else:
                 print(f"Skipping URL {url} due to download error.")
-        else:
-            if not new_urls:
-                print(f"No new URLs to download from {base_url}.")
+        if not new_urls:
+            print(f"No new URLs to download from {base_url}.")
 
 if __name__ == '__main__':
     main()
