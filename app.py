@@ -39,7 +39,12 @@ def save_urls_to_file(urls, file_path):
             file.write(url + '\n')
 
 def run_youtube_dl(file_path):
-    subprocess.run(['youtube-dl.exe', '-a', file_path], check=True)
+    try:
+        subprocess.run(['youtube-dl.exe', '-a', file_path], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"youtube-dl failed with error: {e}")
+        return False
+    return True
 
 def move_mp4_files(subdirectory):
     # Create subdirectory if it does not exist
@@ -51,38 +56,72 @@ def move_mp4_files(subdirectory):
         if file.endswith('.mp4'):
             shutil.move(file, os.path.join(subdirectory, file))
 
+def save_downloaded_urls(urls, file_path):
+    with open(file_path, 'a') as file:
+        for url in urls:
+            file.write(url + '\n')
+
+def read_downloaded_urls(file_path):
+    if not os.path.exists(file_path):
+        return set()
+    with open(file_path, 'r') as file:
+        return set(line.strip() for line in file)
+
 def get_subdirectory_from_url(base_url):
     parsed_url = urlparse(base_url)
     path_parts = parsed_url.path.split('/')
     if 'search' in path_parts:
         search_index = path_parts.index('search')
-        if search_index + 1 < len(path_parts):
+        if (search_index + 1) < len(path_parts):
             return path_parts[search_index + 1]
     return 'video'
 
 def main():
     # Set up command line argument parsing
     parser = argparse.ArgumentParser(description='Scrape a webpage for all URLs and save them to a file.')
-    parser.add_argument('base_url', type=str, help='The base URL of the webpage to scrape')
+    parser.add_argument('--to_download_file', type=str, default='to_download.txt', help='The file containing URLs to start the scrape from (default: to_download.txt)')
     parser.add_argument('--output', type=str, default='urls.txt', help='The output file path (default: urls.txt)')
     parser.add_argument('--filter_path', type=str, default='/video', help='The path to filter URLs (default: /video)')
+    parser.add_argument('--downloaded_file', type=str, default='downloaded.dat', help='The file to save downloaded URLs (default: downloaded.dat)')
     args = parser.parse_args()
 
-    # Scrape URLs and save to file
-    filtered_urls = scrape_urls(args.base_url, args.filter_path)
-    save_urls_to_file(filtered_urls, args.output)
+    # Read URLs to download from file
+    with open(args.to_download_file, 'r') as file:
+        base_urls = [line.strip() for line in file]
 
-    # Run youtube-dl with the output file
-    run_youtube_dl(args.output)
+    for base_url in base_urls:
+        # Read previously downloaded URLs
+        downloaded_urls = read_downloaded_urls(args.downloaded_file)
 
-    # Remove the output file after successful download
-    os.remove(args.output)
+        # Scrape URLs and filter out already downloaded ones
+        filtered_urls = scrape_urls(base_url, args.filter_path)
+        new_urls = [url for url in filtered_urls if url not in downloaded_urls]
 
-    # Determine the subdirectory name based on the base URL
-    subdirectory = get_subdirectory_from_url(args.base_url)
+        for url in new_urls:
+            # Save the single URL to a temporary file
+            temp_output_file = 'temp_urls.txt'
+            save_urls_to_file([url], temp_output_file)
 
-    # Move all .mp4 files to the determined subdirectory
-    move_mp4_files(subdirectory)
+            # Run youtube-dl with the temporary file
+            success = run_youtube_dl(temp_output_file)
+
+            if success:
+                # Remove the temporary file after successful download
+                os.remove(temp_output_file)
+
+                # Save the successfully downloaded URL to the downloaded_file
+                save_downloaded_urls([url], args.downloaded_file)
+
+                # Determine the subdirectory name based on the base URL
+                subdirectory = get_subdirectory_from_url(base_url)
+
+                # Move the .mp4 files to the determined subdirectory
+                move_mp4_files(subdirectory)
+            else:
+                print(f"Skipping URL {url} due to download error.")
+        else:
+            if not new_urls:
+                print(f"No new URLs to download from {base_url}.")
 
 if __name__ == '__main__':
     main()
