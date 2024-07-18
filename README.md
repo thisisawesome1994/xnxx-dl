@@ -53,7 +53,7 @@ For the following command:
 ```
 python app.py https://www.xnxx.com/search/* --output urls.txt --filter_path /video
 ```
-The script scrapes https://www.xnxx.com/search/query for all URLs that start with https://www.example.com/video.
+The script scrapes https://www.xnxx.com/search/query for all URLs that start with https://www.xnxx.com/video*
 Saves the filtered URLs to urls.txt.
 Downloads the videos from the URLs listed in urls.txt using youtube-dl.exe.
 Removes urls.txt after a successful download.
