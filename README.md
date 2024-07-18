@@ -1,6 +1,6 @@
 # XNXX-DL
 
-This project is a web scraper and video downloader that scrapes a given webpage for all URLs that match a specific path, saves them to a text file, downloads the videos using `youtube-dl.exe`, and then organizes the downloaded `.mp4` files into a subdirectory named after a specific part of the URL.
+This project is a web scraper and video downloader that scrapes a given webpage for all URLs that match a specific path, saves them to a text file, downloads the videos using `youtube-dl`, and then organizes the downloaded `.mp4` files into a subdirectory named after a specific part of the URL.
 
 ## Features
 
