@@ -29,7 +29,7 @@ This project is a web scraper and video downloader that scrapes a given webpage 
 
 2. Install the required Python libraries:
     ```sh
-    pip install requests beautifulsoup4
+    pip install requests beautifulsoup4 youtube-dl
     ```
 
 3. Make sure `youtube-dl.exe` is in your PATH or in the same directory as the script.
