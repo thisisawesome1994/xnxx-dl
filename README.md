@@ -6,7 +6,7 @@ This project is a web scraper and video downloader that scrapes a given webpage 
 
 - Scrapes a webpage for URLs matching a specified path.
 - Saves the URLs to a text file.
-- Downloads videos from the URLs using `youtube-dl.exe`.
+- Downloads videos from the URLs using `youtube-dl`.
 - Moves the downloaded `.mp4` files to a subdirectory named after a segment in the base URL.
 
 ## Requirements
