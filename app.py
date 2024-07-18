@@ -40,7 +40,7 @@ def save_urls_to_file(urls, file_path):
 
 def run_youtube_dl(file_path):
     try:
-        subprocess.run(['youtube-dl.exe', '-a', file_path], check=True)
+        subprocess.run(['youtube-dl', '-a', file_path], check=True)
     except subprocess.CalledProcessError as e:
         print(f"youtube-dl failed with error: {e}")
         return False
