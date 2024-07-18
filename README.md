@@ -1,7 +1,7 @@
 # xnxx-dl
-xnxx webscraper and auto downloader
+XNXX-DL
 
-# Web Scraper and Video Downloader
+# XNXX-DL
 
 This project is a web scraper and video downloader that scrapes a given webpage for all URLs that match a specific path, saves them to a text file, downloads the videos using `youtube-dl.exe`, and then organizes the downloaded `.mp4` files into a subdirectory named after a specific part of the URL.
 
@@ -21,13 +21,14 @@ This project is a web scraper and video downloader that scrapes a given webpage 
 - `argparse` library (standard with Python 3.x)
 - `shutil` library (standard with Python 3.x)
 - `os` library (standard with Python 3.x)
+- `youtube-dl`
 
 ## Installation
 
 1. Clone the repository:
     ```sh
     git clone https://github.com/thisisawesome1994/xnxx-dl.git
-    cd web-scraper-and-video-downloader
+    cd xnxx-dl
     ```
 
 2. Install the required Python libraries:
@@ -42,7 +43,7 @@ This project is a web scraper and video downloader that scrapes a given webpage 
 Run the script with the base URL, output file, and filter path. For example:
 
 ```sh
-python app.py https://www.xnxx.com/search/* --output urls.txt --filter_path /video
+python app.py --to_download_file to_download_file.txt --filter_path /video
 ```
 ## Arguments
 base_url: The base URL of the webpage to scrape.
@@ -63,9 +64,7 @@ Moves all .mp4 files to a subdirectory named query.
 ```
 web-scraper-and-video-downloader/
 │
-├── app.exe                 # Main script
 ├── app.py                  # Main script source (redundant)
-├── youtube-dl.exe          # Download script
 ├── ffmpeg.exe              # ffmpeg script
 ├── ffplay.exe              # ffplay script
 ├── ffprobe.exe             # ffprobe script
