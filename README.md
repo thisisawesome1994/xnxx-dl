@@ -17,7 +17,6 @@ This project is a web scraper and video downloader that scrapes a given webpage 
 - Python 3.x
 - `requests` library
 - `beautifulsoup4` library
-- `youtube-dl.exe`
 - `argparse` library (standard with Python 3.x)
 - `shutil` library (standard with Python 3.x)
 - `os` library (standard with Python 3.x)
